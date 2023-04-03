@@ -1,34 +1,74 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Link } from 'expo-router';
+import { useState } from 'react';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  Image,
+  Pressable,
+} from 'react-native';
+import cities from '../data/cities';
+import type { City } from '../types/cities';
 
-export default function Page() {
+function CityItem({ item }) {
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Hello World</Text>
-        <Text style={styles.subtitle}>This is the first page of your app.</Text>
-      </View>
-    </View>
+    <Link href={`/${item.id}`} asChild>
+      <Pressable style={styles.city}>
+        <Image style={styles.image} source={{ uri: item.image }} />
+        <Text style={styles.name}>{item.name}</Text>
+      </Pressable>
+    </Link>
+  );
+}
+
+export default function CityGrid() {
+  const [loading, setLoading] = useState(false);
+
+  if (loading) {
+    return (
+      <FlatList
+        data={Array(10)}
+        renderItem={() => null}
+        // renderItem={() => <SkeletonItem />}
+        numColumns={2}
+      />
+    );
+  }
+
+  return (
+    <FlatList<City>
+      data={cities}
+      renderItem={({ item }) => <CityItem item={item} />}
+      keyExtractor={(item) => item.id}
+      numColumns={2}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    padding: 16,
+    backgroundColor: '#F5F5F5',
+  },
+  city: {
     flex: 1,
-    alignItems: "center",
-    padding: 24,
+    aspectRatio: 1,
+    marginHorizontal: 8,
+    marginBottom: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    elevation: 2,
+    overflow: 'hidden',
+    alignItems: 'center',
   },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
+  image: {
+    width: '100%',
+    height: '70%',
+    backgroundColor: 'gainsboro',
   },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 8,
   },
 });
