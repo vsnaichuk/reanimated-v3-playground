@@ -5,6 +5,9 @@
       "bundler": "metro"
     },
     "name": "reanimated-v3-playground",
-    "slug": "reanimated-v3-playground"
+    "slug": "reanimated-v3-playground",
+    "ios": {
+      "bundleIdentifier": "com.vsnaichuk.reanimated-v3-playgroun"
+    }
   }
 }
