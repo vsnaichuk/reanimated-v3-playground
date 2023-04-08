@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     aspectRatio: 16 / 9,
   },
   name: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     marginHorizontal: 16,
     marginTop: 16,
